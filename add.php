@@ -1,36 +1,32 @@
 <?php 
 
-    // if(isset($_GET['submit'])) {
-    //     echo $_GET['email'];
-    //     echo $_GET['title'];
-    //     echo $_GET['ingredients'];
-    // }
+    $errors = ['email'=>'', 'title'=>'', 'ingredients'=>''];
 
     if(isset($_POST['submit'])) {
         if (empty($_POST['email'])) { // check email
-            echo 'An email is required. <br>';
+            $errors['email'] = 'An email is required. <br>';
         } else {
             $email = $_POST['email'];
-            if (!filter_var($email, FILTER_VALIDATED_EMAIL)) {
-                echo 'Email must be a valid email address';
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = 'Email must be a valid email address';
             }
         }
 
         if (empty($_POST['title'])) { // check title
-            echo 'A title is required. <br>';
+            $errors['title'] = 'A title is required. <br>';
         } else {
             $title = $_POST['title'];
             if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
-                echo 'Title must be letters and spaces only';
+                $errors['title'] = 'Title must be letters and spaces only';
             }
         }
 
         if (empty($_POST['ingredients'])) { // check ingredients
-            echo 'At least one ingredient is required. <br>'; 
+            $errors['ingredients'] = 'At least one ingredient is required. <br>'; 
         } else {
             $ingredients = $_POST['ingredients'];
             if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
-                echo 'Ingredient must be a comma seperated list.';
+                $errors['ingredients'] = 'Ingredient must be a comma seperated list.';
             }
         }
 
@@ -51,10 +47,13 @@
     <form action="add.php" class="white" method="POST" >
         <label>Your Email:</label>
         <input type="text" name="email">
+        <div class="red-text"><?php echo $errors['email']?></div>
         <label>Pizza Title:</label>
         <input type="text" name="title">
+        <div class="red-text"><?php echo $errors['title']?></div>
         <label>Ingredients (comma seperated):</label>
         <input type="text" name="ingredients">
+        <div class="red-text"><?php echo $errors['ingredients']?></div>
         <div class="center">
             <input type="submit" name="submit" value="submit" class="btn brand x-depth-0">
         </div>
