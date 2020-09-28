@@ -30,9 +30,13 @@
             }
         }
 
-        // echo htmlspecialchars($_POST['email']);
-        // echo htmlspecialchars($_POST['title']);
-        // echo htmlspecialchars($_POST['ingredients']);
+        if (array_filter($errors)) {
+            // echo 'Errors in the form';
+        } else {
+            // echo 'Form is valid';
+            header('Location: index.php');
+        }
+
     }
 ?>
 
@@ -61,6 +65,4 @@
     </section>
 
     <?php include('templates/footer.php'); ?>
-    
-
 </html>
