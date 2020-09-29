@@ -22,6 +22,7 @@
 
     // close connection
     mysqli_close($conn);
+
 ?>
 
 
@@ -33,24 +34,27 @@
     <div class="container">
         <div class="row">
 
-            <?php foreach ($pizzas as $pizza) { ?>
+            <?php foreach ($pizzas as $pizza) : ?>
             
-            <div class="col s6 md3">
-                <div class="card z-depth-0">
-                    <div class="card-content center">
-                        <h6><?php echo htmlspecialchars($pizza['title']); ?></h6>
-                        <div><?php echo htmlspecialchars($pizza['ingredients']); ?></div>
-                    </div>
-                    <div class="card-action center" >
-                        <a href="#" class="brand-text">More info</a>
+                <div class="col s6 md3">
+                    <div class="card z-depth-0">
+                        <div class="card-content center">
+                            <h6><?php echo htmlspecialchars($pizza['title']); ?></h6>
+                            <ul>
+                                <?php foreach(explode(',', $pizza['ingredients']) as $ing) : ?>
+                                    <li><?php echo htmlspecialchars($ing); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="card-action center" >
+                            <a href="#" class="brand-text">More info</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php }?>
+            <?php endforeach ?>
 
         </div>
     </div>
     <?php include('templates/footer.php'); ?>
-    
 
 </html>
